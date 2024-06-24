@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:where(.css-dev-only-do-not-override-17seli4).ant-layout .ant-layout-sider {
+  color: #fff;
+}
