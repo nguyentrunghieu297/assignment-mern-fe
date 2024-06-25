@@ -12,7 +12,7 @@ const getBrandList = async () => {
   }
 }
 
-const createBrand = async (inputData: BrandDetail['brandName']) => {
+const createBrand = async (inputData: BrandDetail) => {
   try {
     await apiInstance.post(import.meta.env.VITE_CREATE_BRAND_API, inputData)
   } catch (error) {

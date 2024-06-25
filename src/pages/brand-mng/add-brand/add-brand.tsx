@@ -28,8 +28,7 @@ export default function AddBrand() {
   }
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    const brandName = data.brandName
-    addNewBrandMutation.mutate(brandName)
+    addNewBrandMutation.mutate(data)
   }
 
   return (

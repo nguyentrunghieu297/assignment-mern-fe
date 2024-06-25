@@ -49,7 +49,7 @@ export default function PrivateRoute({ children, roles }: { children: ReactNode;
   }
 
   if (roles && user && !user.data.isAdmin) {
-    return <Navigate to="/unauthorized" replace />
+    return <Navigate to={ROUTE_PATHS.LOGIN} replace />
   }
 
   return children

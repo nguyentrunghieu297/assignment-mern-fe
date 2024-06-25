@@ -39,9 +39,8 @@ export const routes = [
     path: ROUTE_PATHS.ROOT,
     name: 'Homepage',
     component: Home,
-    layout: DefaultLayout,
-    private: true,
-    roles: [AUTHORITIES.ADMIN, AUTHORITIES.CUSTOMER]
+    // layout: DefaultLayout,
+    private: false
   },
   {
     path: `${ROUTE_PATHS.PROFILE}`,

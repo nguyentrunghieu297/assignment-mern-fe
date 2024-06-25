@@ -5,6 +5,7 @@ import { ROUTE_PATHS } from '@/routers'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { notification } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 export const useAuth = () => {
   const navigate = useNavigate()
@@ -19,7 +20,6 @@ export const useAuth = () => {
       const response = await authApi.getCurrentUser()
       if (!response) {
         localStorage.clear()
-        navigate(ROUTE_PATHS.LOGIN)
         return null
       } else return response
     }
@@ -31,7 +31,16 @@ export const useAuth = () => {
       localStorage.setItem(TOKEN_KEY, data.data.accessToken)
       localStorage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken)
       queryClient.invalidateQueries({ queryKey: ['user'] })
-      navigate('/watches')
+
+      const decodedToken = jwtDecode(data.data.accessToken)
+      const isAdmin = decodedToken.isAdmin
+      console.log(isAdmin)
+
+      if (isAdmin) {
+        navigate(ROUTE_PATHS.M_WATCH)
+      } else {
+        navigate(ROUTE_PATHS.ROOT)
+      }
       notification.success({
         message: data.message,
         description: 'You have successfully logged in'
