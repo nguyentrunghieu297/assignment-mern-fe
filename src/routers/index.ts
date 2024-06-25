@@ -9,6 +9,8 @@ import WatchList from '@/pages/product-mng/watch-list'
 import BrandList from '@/pages/brand-mng/brand-list'
 import AccountList from '@/pages/account-mng/account-list'
 import Register from '@/pages/register'
+import ProductDetail from '@/pages/product-detail'
+import CustomerLayout from '@/layouts/customer-layout'
 
 export const ROUTE_PATHS = {
   ROOT: '/',
@@ -39,7 +41,14 @@ export const routes = [
     path: ROUTE_PATHS.ROOT,
     name: 'Homepage',
     component: Home,
-    // layout: DefaultLayout,
+    layout: CustomerLayout,
+    private: false
+  },
+  {
+    path: `${ROUTE_PATHS.WATCH}/:id`,
+    name: 'Watch Detail',
+    component: ProductDetail,
+    layout: CustomerLayout,
     private: false
   },
   {

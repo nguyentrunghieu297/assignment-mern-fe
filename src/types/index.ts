@@ -100,6 +100,16 @@ export type ProductDetail = {
   price: number
   brand: string
   image: string
+  comments: {
+    _id: string
+    rating: number
+    content: string
+    author: {
+      _id: string
+      username: string
+    }
+    createdAt: string
+  }[]
 }
 
 export type ViewBrandListAPIResponse = {

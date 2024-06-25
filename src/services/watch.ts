@@ -51,12 +51,26 @@ const deleteWatch = async (productId: string) => {
   }
 }
 
+const sendFeedback = async (productId: string, feedback: { rating: number; content: string; author: string }) => {
+  try {
+    const { data } = await apiInstance.post<{ message: string }>(
+      `${import.meta.env.VITE_CREATE_FEEDBACK_API}${productId}/comment`,
+      feedback
+    )
+    return data
+  } catch (error) {
+    const errorResponse = error as AxiosError<CustomErrorAPIResponse>
+    throw new Error(errorResponse.response?.data.message)
+  }
+}
+
 const productListApi = {
   getProductList,
   addNewWatch,
   deleteWatch,
   updateWatch,
-  getProductDetail
+  getProductDetail,
+  sendFeedback
 }
 
 export default productListApi
