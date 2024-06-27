@@ -62,9 +62,8 @@ export const routes = [
     path: `${ROUTE_PATHS.PROFILE}`,
     name: 'User Profile',
     component: Profile,
-    layout: DefaultLayout,
-    private: true,
-    roles: [AUTHORITIES.ADMIN, AUTHORITIES.CUSTOMER]
+    layout: CustomerLayout,
+    private: true
   },
   // MANAGER ROUTE
   {

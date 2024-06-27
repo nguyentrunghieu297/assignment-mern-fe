@@ -35,10 +35,12 @@ export type GetCurrentUserAPIResponse = {
 
 export type AuthUser = {
   id: number
-  fullName: string
+  name: string
   dob: string
   username: string
   isAdmin: boolean
+  createdAt: string
+  updatedAt: string
   profilePic: string
 }
 
