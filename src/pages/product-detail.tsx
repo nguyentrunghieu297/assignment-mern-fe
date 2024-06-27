@@ -5,6 +5,7 @@ import { useViewProductDetail } from './product-mng/view-product/use-view-produc
 import { useParams } from 'react-router-dom'
 import { useCreateFeedback } from '@/hooks/use-create-feedback'
 import { useAuth } from '@/hooks/use-auth'
+import moment from 'moment'
 
 const { TextArea } = Input
 
@@ -89,9 +90,12 @@ export default function ProductDetail() {
               <List.Item.Meta
                 avatar={<Avatar>{item.author.username[0]}</Avatar>}
                 title={
-                  <div>
-                    {item.author.username}{' '}
-                    <Rate count={3} disabled defaultValue={item.rating} className="text-yellow-500 text-sm ml-2" />
+                  <div className="mb-2">
+                    <div className="flex gap-5">
+                      <h5 className="text-base">{item.author.username}</h5>
+                      <Rate count={3} disabled defaultValue={item.rating} className="text-yellow-500 text-sm ml-2" />
+                    </div>
+                    <p className="text-xs">{moment(item.createdAt).format('DD/MM/YYYY HH:mm')}</p>
                   </div>
                 }
                 description={item.content}
