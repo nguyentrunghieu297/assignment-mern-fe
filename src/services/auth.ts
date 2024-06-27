@@ -48,6 +48,7 @@ const refreshToken = async (refreshToken: string) => {
 const getCurrentUser = async () => {
   try {
     const { data } = await apiInstance.get<GetCurrentUserAPIResponse>(import.meta.env.VITE_CURRENT_USER_API)
+    console.log(data)
     return {
       ...data,
       data: {

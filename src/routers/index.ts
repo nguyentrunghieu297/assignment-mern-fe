@@ -39,17 +39,11 @@ export const routes = [
     layout: LoginLayout
   },
   {
-    path: ROUTE_PATHS.HOME,
-    name: 'Homepage sign in',
+    path: ROUTE_PATHS.ROOT,
+    name: 'Homepage',
     component: Home,
     layout: CustomerLayout,
-    private: true
-  },
-  {
-    path: ROUTE_PATHS.ROOT,
-    name: 'Homepage sign out',
-    component: Home,
-    layout: CustomerLayout
+    conditional: true
   },
   {
     path: `${ROUTE_PATHS.WATCH}/:id`,

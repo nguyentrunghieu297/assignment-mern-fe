@@ -38,7 +38,7 @@ export const useAuth = () => {
       if (isAdmin) {
         navigate(ROUTE_PATHS.M_WATCH)
       } else {
-        navigate(ROUTE_PATHS.HOME)
+        navigate(ROUTE_PATHS.ROOT)
       }
 
       notification.success({

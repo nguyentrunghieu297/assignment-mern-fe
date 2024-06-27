@@ -8,7 +8,7 @@ export default function CustomerHeader() {
   return (
     <header className="bg-blue-600 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to={user ? ROUTE_PATHS.HOME : ROUTE_PATHS.ROOT}>
+        <Link to={ROUTE_PATHS.ROOT}>
           <h1 className="text-2xl font-bold">My WatchShop</h1>
         </Link>
         <div>
