@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import QueryProvider from './libs/react-query/query-provider.tsx'
+import ConfigAntdTheme from './libs/antd/config-theme.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from '@/libs/redux-toolkit/store.ts'
 import '@/styles/index.css'
-import ConfigAntdTheme from './libs/antd/config-theme.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

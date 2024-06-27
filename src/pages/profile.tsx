@@ -51,11 +51,12 @@ export default function Profile() {
         <Divider />
         <div className="mb-6">
           <Title level={4}>Thông tin cá nhân</Title>
-          <Text strong>Tên:</Text> <Text>{user?.data.name}</Text>
+          <Text strong>Tên: </Text>
+          <Text>{user?.data.name}</Text>
           <br />
-          <Text strong>Ngày sinh:</Text> <Text>{moment(user?.data.dob).format('DD/MM/YYYY')}</Text>
+          <Text strong>Ngày sinh: </Text> <Text>{moment(user?.data.dob).format('DD/MM/YYYY')}</Text>
           <br />
-          <Text strong>Tên đăng nhập:</Text> <Text>{user?.data.username}</Text>
+          <Text strong>Tên đăng nhập: </Text> <Text>{user?.data.username}</Text>
         </div>
         <div className="flex justify-between space-x-4">
           <Button type="dashed" icon={<LockOutlined />} onClick={handleChangePassword}>
