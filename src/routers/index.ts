@@ -14,6 +14,7 @@ import CustomerLayout from '@/layouts/customer-layout'
 
 export const ROUTE_PATHS = {
   ROOT: '/',
+  HOME: '/home',
   REGISTER: '/register',
   LOGIN: '/login',
   WATCH: '/watch',
@@ -38,18 +39,24 @@ export const routes = [
     layout: LoginLayout
   },
   {
-    path: ROUTE_PATHS.ROOT,
-    name: 'Homepage',
+    path: ROUTE_PATHS.HOME,
+    name: 'Homepage sign in',
     component: Home,
     layout: CustomerLayout,
-    private: false
+    private: true
+  },
+  {
+    path: ROUTE_PATHS.ROOT,
+    name: 'Homepage sign out',
+    component: Home,
+    layout: CustomerLayout
   },
   {
     path: `${ROUTE_PATHS.WATCH}/:id`,
-    name: 'Watch Detail',
+    name: 'Watch detail sign out',
     component: ProductDetail,
     layout: CustomerLayout,
-    private: false
+    conditional: true
   },
   {
     path: `${ROUTE_PATHS.PROFILE}`,

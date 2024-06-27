@@ -6,15 +6,12 @@ import { DecodedToken } from '@/types'
 import { jwtDecode } from 'jwt-decode'
 import { ReactNode, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
+import { AUTHORITIES } from '@/constants'
 
 export default function PrivateRoute({ children, roles }: { children: ReactNode; roles: string[] }) {
   const { user } = useAuth()
-
-  const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
   const tokenKey = localStorage.getItem(TOKEN_KEY)
-  if (!refreshToken || !tokenKey) {
-    logOutApp()
-  }
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
 
   useEffect(() => {
     const decodedToken = jwtDecode<DecodedToken>(tokenKey!)
@@ -41,15 +38,32 @@ export default function PrivateRoute({ children, roles }: { children: ReactNode;
     return () => clearInterval(checkTokenExpiration) // Clear interval on component unmount
   }, [refreshToken, tokenKey])
 
-  if (!user) {
+  if (!refreshToken || !tokenKey) {
+    console.log('User not found in PrivateRoute')
+    logOutApp()
+    return <Navigate to={ROUTE_PATHS.LOGIN} replace />
+  }
+
+  if (!user?.data) {
     const token = localStorage.getItem(TOKEN_KEY)
     if (!token) {
       return <Navigate to={ROUTE_PATHS.LOGIN} replace />
     }
   }
 
-  if (roles && user && !user.data.isAdmin) {
-    return <Navigate to={ROUTE_PATHS.LOGIN} replace />
+  // if (roles && user) {
+  //   const isAuthorized = roles.includes(AUTHORITIES.ADMIN) ? user.data.isAdmin : !user.data.isAdmin
+  //   if (!isAuthorized) {
+  //     return <Navigate to={ROUTE_PATHS.ROOT} replace />
+  //   }
+  // }
+
+  if (roles && user && roles.length > 0) {
+    console.log('User not found in PrivateRoute')
+    const hasRequiredRole = roles.includes(AUTHORITIES.ADMIN) ? user.data.isAdmin : !user.data.isAdmin
+    if (!hasRequiredRole) {
+      return <Navigate to={ROUTE_PATHS.ROOT} replace />
+    }
   }
 
   return children

@@ -13,9 +13,10 @@ const signIn = async (username: string, password: string): Promise<LoginUserAPIR
   }
 }
 
-const signUp = async (username: string, password: string) => {
+const signUp = async (name: string, username: string, password: string) => {
   try {
     await apiInstance.post<LoginUserAPIResponse>(import.meta.env.VITE_SIGNUP_API, {
+      name,
       username,
       password
     })
@@ -47,7 +48,14 @@ const refreshToken = async (refreshToken: string) => {
 const getCurrentUser = async () => {
   try {
     const { data } = await apiInstance.get<GetCurrentUserAPIResponse>(import.meta.env.VITE_CURRENT_USER_API)
-    return data
+    return {
+      ...data,
+      data: {
+        ...data.data,
+        isAdmin: data.data.isAdmin // Đảm bảo trường này tồn tại
+      }
+    }
+    // return data
   } catch (error) {
     return null
   }

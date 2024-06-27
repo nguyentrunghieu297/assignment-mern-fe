@@ -34,13 +34,13 @@ export const useAuth = () => {
 
       const decodedToken = jwtDecode(data.data.accessToken)
       const isAdmin = decodedToken.isAdmin
-      console.log(isAdmin)
 
       if (isAdmin) {
         navigate(ROUTE_PATHS.M_WATCH)
       } else {
-        navigate(ROUTE_PATHS.ROOT)
+        navigate(ROUTE_PATHS.HOME)
       }
+
       notification.success({
         message: data.message,
         description: 'You have successfully logged in'
@@ -55,7 +55,15 @@ export const useAuth = () => {
   })
 
   const signUpMutation = useMutation({
-    mutationFn: ({ username, password }: { username: string; password: string }) => authApi.signUp(username, password),
+    mutationFn: ({ name, username, password }: { name: string; username: string; password: string }) =>
+      authApi.signUp(name, username, password),
+    onSuccess: () => {
+      notification.success({
+        message: 'Sign Up Success',
+        description: 'You have successfully signed up'
+      })
+      navigate('/login')
+    },
     onError: (error) => {
       notification.error({
         message: error.message,

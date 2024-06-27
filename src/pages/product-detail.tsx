@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Card, Rate, Input, Button, List, Avatar } from 'antd'
+import { Card, Rate, Input, Button, List, Avatar, notification } from 'antd'
 import { ShoppingCartOutlined, ThunderboltOutlined } from '@ant-design/icons'
 import { useViewProductDetail } from './product-mng/view-product/use-view-product-detail'
 import { useParams } from 'react-router-dom'
 import { useCreateFeedback } from '@/hooks/use-create-feedback'
+import { useAuth } from '@/hooks/use-auth'
 
 const { TextArea } = Input
 
@@ -13,6 +14,7 @@ export default function ProductDetail() {
   const productId = useParams()
   const { data } = useViewProductDetail(productId.id)
   const createFeedbackMutation = useCreateFeedback(productId.id)
+  const { user } = useAuth()
 
   const product = {
     name: 'Luxury Watch',
@@ -23,17 +25,22 @@ export default function ProductDetail() {
     reviews: 120
   }
 
-  // TODO: Add member feedback
   const handleSubmitFeedback = () => {
     console.log('Rating:', rating)
     console.log('Feedback:', feedback)
-    createFeedbackMutation.mutate({
-      feedback: {
-        rating: rating,
-        content: feedback,
-        author: '6675a954b87f260f98c48f0f'
-      }
-    })
+    if (user?.data) {
+      createFeedbackMutation.mutate({
+        feedback: {
+          rating: rating,
+          content: feedback,
+          author: user?.data.id
+        }
+      })
+    } else {
+      notification.error({
+        message: 'Please login first'
+      })
+    }
     setRating(0)
     setFeedback('')
   }

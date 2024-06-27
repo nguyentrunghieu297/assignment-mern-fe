@@ -1,18 +1,9 @@
+import { useAuth } from '@/hooks/use-auth'
 import { ROUTE_PATHS } from '@/routers'
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function CustomerHeader() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const userAvatarUrl = 'https://via.placeholder.com/40'
-
-  const handleLogin = () => {
-    setIsLoggedIn(true)
-  }
-
-  const handleLogout = () => {
-    setIsLoggedIn(false)
-  }
+  const { logoutMutation, user } = useAuth()
 
   const goToProfile = () => {
     alert('/profile')
@@ -25,7 +16,7 @@ export default function CustomerHeader() {
           <h1 className="text-2xl font-bold">My WatchShop</h1>
         </Link>
         <div>
-          {!isLoggedIn ? (
+          {!user ? (
             <div className="flex space-x-4">
               <Link to={ROUTE_PATHS.LOGIN} className="bg-white text-blue-600 px-4 py-2 rounded">
                 Login
@@ -37,12 +28,12 @@ export default function CustomerHeader() {
           ) : (
             <div className="flex items-center space-x-4">
               <img
-                src={userAvatarUrl}
+                src={user?.data.profilePic}
                 alt="avatar"
                 className="w-10 h-10 rounded-full cursor-pointer"
                 onClick={goToProfile}
               />
-              <button className="bg-white text-blue-600 px-4 py-2 rounded" onClick={handleLogout}>
+              <button className="bg-white text-blue-600 px-4 py-2 rounded" onClick={() => logoutMutation.mutate()}>
                 Logout
               </button>
             </div>

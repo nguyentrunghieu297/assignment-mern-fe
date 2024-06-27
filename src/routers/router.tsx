@@ -1,5 +1,6 @@
 import PublicRoute from '@/components/auth/public-route'
 import PrivateRoute from '@/components/auth/private-route'
+import ConditionalRoute from '@/components/auth/contitional-route'
 import { Route, Routes } from 'react-router-dom'
 import { routes } from '.'
 
@@ -11,10 +12,22 @@ export default function Router() {
         const Layout = route.layout
         return (
           <Route
-            key={route.path}
+            key={route.name}
             path={route.path}
             element={
-              route.private ? (
+              route.conditional ? (
+                <ConditionalRoute roles={route.roles}>
+                  {Layout ? (
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  ) : (
+                    <div>
+                      <Page />
+                    </div>
+                  )}
+                </ConditionalRoute>
+              ) : route.private ? (
                 <PrivateRoute roles={route.roles}>
                   {Layout ? (
                     <Layout>

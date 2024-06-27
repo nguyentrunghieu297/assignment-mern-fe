@@ -5,9 +5,10 @@ import { Navigate } from 'react-router-dom'
 
 export default function PublicRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuth()
-  if (user) {
+  console.log(user?.data)
+  if (user?.data) {
     const token = localStorage.getItem(TOKEN_KEY)
     if (token) return <Navigate to={ROUTE_PATHS.ROOT} replace />
   }
-  return children
+  return <>{children}</>
 }
